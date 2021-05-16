@@ -1,0 +1,50 @@
+version: '3.5'
+services:
+  zabbix:
+    container_name: zabbix
+    image: zabbix/zabbix-server-mysql:latest
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro 
+      - ./alertscripts:/usr/lib/zabbix/alertscripts
+      - ./externalscripts:/usr/lib/zabbix/externalscripts
+    ports:
+      - "10051:10051"
+    environment:
+      - ZBX_DEBUGLEVEL=2
+      - ZBX_STARTDISCOVERERS=2
+    secrets:
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+
+  zabbixweb:
+    container_name: zabbixweb
+    image: zabbix/zabbix-web-nginx-mysql:latest
+    restart: unless-stopped
+    ports:
+      - "888:8080"
+    environment:
+      - ZBX_DEBUGLEVEL=4
+    secrets:
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+
+  zabbixagent2:
+    container_name: zabbixagent2
+    privileged: true
+    image: zabbix/zabbix-agent2
+    restart: unless-stopped
+
+secrets:
+  MYSQL_USER:
+    file: ./secrets/MYSQL_USER
+  MYSQL_PASSWORD:
+    file: ./secrets/MYSQL_PASSWORD
+  MYSQL_ROOT_PASSWORD:
+    file: ./secrets/MYSQL_ROOT_PASSWORD
+
+networks:
+  default:
+    external:
+      name: services_bridge

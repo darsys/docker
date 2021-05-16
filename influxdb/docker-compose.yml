@@ -1,0 +1,22 @@
+version: '3.7'
+services:
+  influxdb:
+    container_name: influxdb
+    image: influxdb:latest
+    ports:
+      - '8086:8086'
+    volumes:
+      - influxdb_data:/var/lib/influxdb
+    environment:
+    - INFLUXDB_HTTP_AUTH_ENABLED=true
+    restart: unless-stopped
+
+volumes:
+  influxdb_data:
+    external: true
+    name: influxdb_data
+
+networks:
+  default:
+    external:
+      name: services_bridge

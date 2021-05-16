@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  mqtt:
+    container_name: mosquitto
+    image: eclipse-mosquitto
+    restart: unless-stopped
+    ports:
+      - "8883:8883"
+      - "9001:9001"
+    volumes:
+      - /dockerdata/mosquitto/config:/mosquitto/config
+      - /dockerdata/mosquitto/data:/mosquitto/data
+      - /dockerdata/mosquitto/log:/mosquitto/log
+
+networks:
+  default:
+    external:
+      name: services_bridge

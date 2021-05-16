@@ -1,0 +1,60 @@
+version: '3.5'
+services:
+#  zabbixagent:
+#    container_name: zabbixagent
+#    image: zabbix/zabbix-agent
+#    restart: unless-stopped
+#    privileged: true
+#    environment:
+#      - ZBX_HOSTNAME=hydra.tayoby.com
+#      - ZBX_SERVER_HOST=hydra.tayoby.com
+  zabbix:
+    container_name: zabbix
+    image: zabbix/zabbix-server-mysql:latest
+    restart: unless-stopped
+    ports:
+      - "10051:10051"
+    environment:
+      - PHP_TZ="America/Chicago"
+      - ZBX_DEBUGLEVEL=2
+      - DB_SERVER_HOST=mariadb
+      - DB_SERVER_PORT=3306
+      - MYSQL_USER_FILE=/run/secrets/MYSQL_USER
+      - MYSQL_PASSWORD_FILE=/run/secrets/MYSQL_PASSWORD
+#      - MYSQL_ROOT_PASSWORD=taytob01
+    secrets:
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+#      - MYSQL_ROOT_PASSWORD
+
+  zabbixweb:
+    container_name: zabbixweb
+    image: zabbix/zabbix-web-nginx-mysql:latest
+    restart: unless-stopped
+    ports:
+      - "8900:80"
+    environment:
+      - PHP_TZ="America/Chicago"
+      - ZBX_SERVER_NAME=HydraZabbix
+      - ZBX_SERVER_HOST=zabbix
+      - ZBX_DEBUGLEVEL=2
+      - DB_SERVER_HOST=mariadb
+      - DB_SERVER_PORT=3306
+      - MYSQL_USER_FILE=/run/secrets/MYSQL_USER
+      - MYSQL_PASSWORD_FILE=/run/secrets/MYSQL_PASSWORD
+    secrets:
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+
+secrets:
+  MYSQL_USER:
+    file: ./secrets/MYSQL_USER
+  MYSQL_PASSWORD:
+    file: ./secrets/MYSQL_PASSWORD
+  MYSQL_ROOT_PASSWORD:
+    file: ./secrets/MYSQL_ROOT_PASSWORD
+
+networks:
+  default:
+    external:
+      name: mysql_network

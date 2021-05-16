@@ -1,0 +1,32 @@
+version: '3.5'
+services:
+  zabbix:
+    container_name: zabbix
+    image: zabbix/zabbix-server-mysql:latest
+    restart: unless-stopped
+    ports:
+      - "10051:10051"
+    environment:
+      - PHP_TZ="America/Chicago"
+      - ZBX_DEBUGLEVEL=3
+      - DB_SERVER_HOST=mariadb
+      - DB_SERVER_PORT=3306
+      - MYSQL_USER_FILE=/run/secrets/MYSQL_USER
+      - MYSQL_PASSWORD_FILE=/run/secrets/MYSQL_PASSWORD
+#      - MYSQL_ROOT_PASSWORD=/run/secrets/MYSQL_ROOT_PASSWORD
+    secrets:
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+
+secrets:
+  MYSQL_USER:
+    file: ./secrets/MYSQL_USER
+  MYSQL_PASSWORD:
+    file: ./secrets/MYSQL_PASSWORD
+  MYSQL_ROOT_PASSWORD:
+    file: ./secrets/MYSQL_ROOT_PASSWORD
+
+networks:
+  default:
+    external:
+      name: mysql_network

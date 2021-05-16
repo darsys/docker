@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+  syncthing:
+    image: linuxserver/syncthing
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Chicago
+      - UMASK_SET=022
+    ports:
+      - 8384:8384
+      - 22000:22000
+      - 21027:21027/udp
+    volumes:
+      - ./config:/config
+      - /share/Sync:/Sync
+      - /myspace/backups:/Backups
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+
+networks:
+  default:
+    external:
+      name: services_bridge

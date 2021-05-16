@@ -1,0 +1,18 @@
+version: "3.7"
+services:
+  nfsserver:
+    image: itsthenetwork/nfs-server-alpine
+    container_name: nfsserver
+    restart: unless-stopped
+    privileged: true
+    environment:
+      SHARED_DIRECTORY: /share
+    volumes:
+       - "/share:/share"
+    ports:
+      - 2049:2049
+
+networks:
+  default:
+    external:
+      name: services_bridge

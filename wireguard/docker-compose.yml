@@ -1,0 +1,31 @@
+version: "2.1"
+services:
+  wireguard:
+    image: ghcr.io/linuxserver/wireguard
+    container_name: wireguard
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Chicago
+    volumes:
+      - wireguard_data:/config
+      - /lib/modules:/lib/modules
+    ports:
+      - 5555:51820/udp
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+    restart: unless-stopped
+
+volumes:
+  wireguard_data:
+    name: wireguard_data
+
+networks:
+  default:
+    name: wireguard
+    ipam:
+      config:
+        - subnet: 192.168.26.0/24

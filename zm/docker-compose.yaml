@@ -1,0 +1,39 @@
+version: '3.7'
+
+services:
+  zm:
+    container_name: zm
+    image: dlandon/zoneminder:latest
+    command: "/sbin/my_init"
+    restart: unless-stopped
+    shm_size: '2gb'
+    ports:
+      - "8443:443"
+      - "9005:9000"
+    volumes:
+      - zm_config:/config
+      - zm_data:/var/cache/zoneminder
+    environment:
+      - TZ="America/Chicago"
+      - SHMEM="50%"
+      - PUID="99"
+      - PGID="100"
+      - INSTALL_HOOK="0"
+      - INSTALL_FACE="0"
+      - INSTALL_TINY_YOLO="0"
+      - INSTALL_YOLO="0"
+      - MULTI_PORT_START="0"
+      - MULTI_PORT_END="0"
+
+volumes:
+  zm_data:
+    external: true
+    name: zm_data
+  zm_config:
+    external: true
+    name: zm_config
+
+networks:
+  default:
+    external:
+      name: services_bridge

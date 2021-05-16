@@ -1,0 +1,29 @@
+# Use root/example as user/password credentials
+version: '3.5'
+
+services:
+
+  mariadb:
+    image: mariadb
+    container_name: mariadb
+    restart: always
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    ports:
+      - 3306:3306
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - 9080:8080
+
+networks:
+  default:
+    name: services_bridge
+
+volumes:
+  mariadb_data:
+    external: true
+    name: mariadb_data

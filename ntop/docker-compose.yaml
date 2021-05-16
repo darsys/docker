@@ -1,0 +1,18 @@
+version: '3.7'
+
+services:
+  ntopng:
+    container_name: ntopng
+    image: ntop/ntopng:stable
+    restart: unless-stopped
+    network_mode: "host"
+    entrypoint: /run.sh
+    command: --community -d /var/lib/ntopng -i eno2 -r 127.0.0.1:6379@0 -w 0.0.0.0:3333 --local-networks="192.168.88.0/24,192.168.86.0/24"
+    volumes:
+      - ntop_data:/var/lib/ntopng
+    environment:
+      PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+volumes:
+  ntop_data:
+    name: ntop_data

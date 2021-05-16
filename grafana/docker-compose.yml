@@ -1,0 +1,17 @@
+version: '3'
+services:
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:latest
+    ports:
+      - '3000:3000'
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    restart: unless-stopped
+volumes:
+  grafana-storage:
+
+networks:
+  default:
+    external:
+      name: services_bridge
