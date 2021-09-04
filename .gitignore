@@ -1,0 +1,19 @@
+### my possibly private stuff ##
+data/
+log/
+logs/
+secrets/
+docker-compose.override.y*ml
+.env
+
+### passwords?
+passwords.txt
+
+### certificates ###
+*.pem
+*.key
+*.crt
+*.csr
+*.cer
+*.srl
+*.priv

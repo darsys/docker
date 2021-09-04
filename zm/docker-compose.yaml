@@ -6,7 +6,7 @@ services:
     image: dlandon/zoneminder:latest
     command: "/sbin/my_init"
     restart: unless-stopped
-    shm_size: '2gb'
+    shm_size: '4gb'
     ports:
       - "8443:443"
       - "9005:9000"
@@ -15,9 +15,9 @@ services:
       - zm_data:/var/cache/zoneminder
     environment:
       - TZ="America/Chicago"
-      - SHMEM="50%"
+      - SHMEM="80%"
       - PUID="99"
-      - PGID="100"
+      - PGID="99"
       - INSTALL_HOOK="0"
       - INSTALL_FACE="0"
       - INSTALL_TINY_YOLO="0"

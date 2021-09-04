@@ -14,9 +14,21 @@ services:
       - nginx_www:/usr/share/nginx/html
       - certbot_www:/var/www/certbot
       - certbot_config:/etc/letsencrypt
+  certbot:
+    container_name: certbot
+    image: certbot/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    restart: unless-stopped
+    volumes:
+      - certbot_www:/var/www/certbot
+      - certbot_config:/etc/letsencrypt
 
 volumes:
   nginx_config:
     name: nginx_config
   nginx_www:
     name: nginx_www
+  certbot_config:
+    name: certbot_config
+  certbot_www:
+    name: certbot_www

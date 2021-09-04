@@ -2,8 +2,12 @@ version: '3.2'
 services:
   cadvisor:
     image: gcr.io/google-containers/cadvisor:latest
-    privileged: true
     container_name: cadvisor
+    privileged: true
+    command:
+      - '-docker_only=true'
+      - '-housekeeping_interval=30s'
+      - '-disable_metrics=disk'
     ports:
     - 8085:8080
     volumes:
@@ -11,6 +15,8 @@ services:
     - /var/run:/var/run:rw
     - /sys:/sys:ro
     - /var/lib/docker/:/var/lib/docker:ro
+    devices:
+      - /dev/kmsg:/dev/kmsg
     restart: unless-stopped
 
 networks:

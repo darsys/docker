@@ -10,6 +10,12 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=America/Chicago
+      - SERVERURL=${SERVERURL}
+      - SERVERPORT=${SERVERPORT}
+      - PEERS=${PEERS}
+      - PEERDNS=${PEERDNS}
+      - INTERNAL_SUBNET=${INTERNAL_SUBNET}
+      - ALLOWEDIPS=${ALLOWEDIPS}
     volumes:
       - wireguard_data:/config
       - /lib/modules:/lib/modules

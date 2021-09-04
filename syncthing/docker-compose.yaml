@@ -2,13 +2,13 @@ version: '3.7'
 
 services:
   syncthing:
+    container_name: syncthing
     image: linuxserver/syncthing
     restart: unless-stopped
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=America/Chicago
-      - UMASK_SET=022
     ports:
       - 8384:8384
       - 22000:22000
@@ -17,6 +17,7 @@ services:
       - ./config:/config
       - /share/Sync:/Sync
       - /myspace/backups:/Backups
+      # - /dockerdata:/dockerdata
     logging:
       driver: "json-file"
       options:

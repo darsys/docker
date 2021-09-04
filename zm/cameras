@@ -1,0 +1,26 @@
+Foscams 
+kitchen .216
+garage 215
+basement 214
+furnace 212
+
+source type remote
+
+protocol http
+method simple
+host name 192.168.88.216
+port 80
+path /videostream.cgi?user=darsys&pwd=taytob01&rate=12
+24bin color
+capture res 640x480
+
+
+KiWyze RTSP
+3d printer .208
+
+source type Libvlc
+
+path rtsp://user:pw@192.168.88.208/live
+Method UDP
+32 bit color
+1920x1080

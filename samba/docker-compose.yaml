@@ -15,7 +15,7 @@ services:
     stdin_open: true
     tty: true
     volumes:
-      - /share/Backups:/backups
+      - /myspace/backups:/backups
     environment:
       - TZ='America/Chicago'
       - PERMISSIONS=true
