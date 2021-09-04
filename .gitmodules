@@ -1,0 +1,3 @@
+[submodule "factorio"]
+	path = factorio
+	url = git@github.com:tayoby/factorio.git
