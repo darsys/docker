@@ -18,7 +18,12 @@ services:
       - /myspace/backups:/backups
     environment:
       - TZ='America/Chicago'
+      - NMBD=true
+      - WORKGROUP=WORKGROUP
       - PERMISSIONS=true
+      - SHARE=${SHARE1}
+      - USER=${USER1}
+      - GLOBAL=netbios name = hydra
 
 networks:
   default:
