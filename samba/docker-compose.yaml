@@ -16,12 +16,14 @@ services:
     tty: true
     volumes:
       - /myspace/backups:/backups
+      - /dockerdata:/dockerdata
     environment:
       - TZ='America/Chicago'
       - NMBD=true
       - WORKGROUP=WORKGROUP
       - PERMISSIONS=true
       - SHARE=${SHARE1}
+      - SHARE1=${SHARE2}
       - USER=${USER1}
       - GLOBAL=netbios name = hydra
 

@@ -12,8 +12,8 @@ services:
     volumes:
       - nginx_config:/etc/nginx
       - nginx_www:/usr/share/nginx/html
-      - certbot_www:/var/www/certbot
-      - certbot_config:/etc/letsencrypt
+#      - certbot_www:/var/www/certbot
+#      - certbot_config:/etc/letsencrypt
 
 volumes:
   nginx_config:

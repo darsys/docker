@@ -6,8 +6,8 @@ services:
     image: linuxserver/syncthing
     restart: unless-stopped
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=100
+      - PGID=100
       - TZ=America/Chicago
     ports:
       - 8384:8384

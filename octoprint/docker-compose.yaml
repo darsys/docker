@@ -14,9 +14,10 @@ services:
      - octoprint:/octoprint
     # uncomment the lines below to ensure camera streaming is enabled when
     # you add a video device
-    #environment:
+    environment:
     #  - ENABLE_MJPG_STREAMER=true
-  
+      - VIRTUAL_HOST=octo.tayoby.com
+      - VIRTUAL_PORT=8095
   ####
   # uncomment if you wish to edit the configuration files of octoprint
   # refer to docs on configuration editing for more information
