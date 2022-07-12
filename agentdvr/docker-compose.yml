@@ -1,0 +1,33 @@
+version: "3"
+services:
+   deepstack:
+      image: deepquestai/deepstack
+      container_name: deepstack
+      volumes:
+         - /dockerdata/agentdvr/deepstackdata/:/datastore
+      environment:
+         - VISION-FACE=True
+         - VISION-DETECTION=True
+      ports:
+         - 5000:5000
+      restart: unless-stopped
+   agentdvr:
+      image: doitandbedone/ispyagentdvr:latest
+      container_name: agentdvr
+      volumes:
+         - /dockerdata/agentdvr/config/:/agent/Media/XML/
+         - /dockerdata/agentdvr/media/:/agent/Media/
+         - /dockerdata/agentdvr/commands:/agent/Commands/
+      environment:
+         - TZ=America/Chicago
+      ports:
+         - 8090:8090
+         - 3478:3478/udp
+         - 50000-50010:50000-50010/udp
+      restart: unless-stopped
+
+networks:
+  default:
+    external:
+      name: services_bridge
+      

@@ -15,7 +15,7 @@ services:
     stdin_open: true
     tty: true
     volumes:
-      - /myspace/backups:/backups
+      - /mnt/holeworld/backups:/backups
       - /dockerdata:/dockerdata
     environment:
       - TZ='America/Chicago'

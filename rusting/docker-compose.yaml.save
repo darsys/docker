@@ -1,0 +1,26 @@
+version: '2.0'
+services:
+  rusting::
+    image: archlinux/archlinux:latest
+    container_name: rusting
+    ports:
+      - "24:22"
+    volumes:
+      - ./swagger:/usr/share/nginx/html/swagger
+    environment:
+      API_URL: swagger/api.yaml
+
+  swagger-editor:
+    image: swaggerapi/swagger-editor
+    container_name: swagger-editor
+    ports:
+      - "8002:8080"
+    volumes:
+      - ./swagger:/usr/share/nginx/html/swagger
+    environment:
+      URL: swagger/api.yaml
+
+networks:
+  default:
+    external:
+      name: services_bridge
