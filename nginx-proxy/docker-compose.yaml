@@ -89,7 +89,7 @@ services:
     image: nginxproxy/acme-companion
     container_name: nginx-proxy-acme
     environment:
-      - DEFAULT_EMAIL=${DEFAULT_EMAIL}
+      - DEFAULT_EMAIL=${DEFAULT_EMAIL}  
     volumes_from:
       - nginx-proxy
     volumes:

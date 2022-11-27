@@ -1,0 +1,14 @@
+---
+version: "3"
+
+services:
+  weewx:
+    image: felddy/weewx
+    container_name: weewx
+    restart: unless-stopped
+    volumes:
+      - ./data:/data
+    environment:
+      - TIMEZONE=US/Central
+      - WEEWX_UID=weewx
+      - WEEWX_GID=dialout
